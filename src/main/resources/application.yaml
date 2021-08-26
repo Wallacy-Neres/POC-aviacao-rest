@@ -1,0 +1,25 @@
+server:
+  port: 8999
+spring:
+  messages:
+    basename: messages
+  kafka:
+    listener:
+      ack-mode: manual
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      ssl.endpoint.identication.algorithm: https
+      schema.registry.url: http://localhost:8081/
+      value:
+        subject:
+          name:
+            strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+      auto:
+        register:
+          schemas: true
+      specific:
+        avro:
+          reader: true
